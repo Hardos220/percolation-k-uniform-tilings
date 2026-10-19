@@ -87,11 +87,14 @@ def fig_validation():
                    elinewidth=0.5, capsize=0, label=names.get(k, k), color='k' if sq else None)
     b.set_xscale('log')
     b.set_yscale('symlog', linthresh=5, linscale=1.2)  # linear for |y| < 5, logarithmic beyond
+    b.axhspan(-5, 5, color='0.93', zorder=0)  # the linear part of the axis
+    for yb in (-5, 5):
+        b.axhline(yb, color='0.6', lw=0.4, ls=':')
     b.axhline(0, color='0.4', lw=0.5)
-    b.set_xlabel('torus size $N$ (sites)')
+    b.set_xlabel('torus size $N_s$ (sites)')
     b.set_ylabel(r'$p_N - p_c$  $(10^{-6})$')
-    b.set_ylim(-200, 20)
-    yt = [-100, -10, 0, 10]
+    b.set_ylim(-200, 12)
+    yt = [-100, -20, -5, 0, 5]
     b.set_yticks(yt)
     b.set_yticklabels([f'{t:d}'.replace('-', '−') for t in yt])
     b.yaxis.set_minor_locator(matplotlib.ticker.NullLocator())

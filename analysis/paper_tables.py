@@ -125,7 +125,11 @@ def main():
     # ---- 2-uniform table: our site and bond values, site values of Neher et al. (supplement, Table 4)
     two = json.load(open('reference/two_uniform_reference.json'))
     geom = {'02__2__eu_4f_4k_1': 'staggered', '02__2__eu_4f_4k_2': 'eclipsed'}
-    pair16 = '0.6286(2), 0.6279(2)'  # Neher et al. list both values for this composition without distinguishing the lattices
+    # Neher et al. list both values for this composition without distinguishing the lattices; Lebrecht et al.
+    # (Table 2) pair 0.6286 with bond 0.5189 and 0.6279 with 0.5177, i.e. with our eclipsed and staggered tilings
+    pair16 = {'02__2__eu_4f_4k_2': '0.6286(2)', '02__2__eu_4f_4k_1': '0.6279(2)'}
+    # four-decimal bond values of Lebrecht et al. (2021), Table 2 (results/review3_checks.json)
+    leb = {t: v['bond_lebrecht'] for t, v in json.load(open('results/review3_checks.json'))['lebrecht_bond']['rows'].items()}
     lines2 = []
     neher_dev = []
     for x in two:
@@ -134,14 +138,14 @@ def main():
         pb, eb = float(th[(tag, 'bond')]['pc']), float(th[(tag, 'bond')]['err'])
         nm = tag.split('__eu_')[1].replace('_', ' ')
         if tag in geom:
-            sstr = pair16 + r'$^{\ast}$'
+            sstr = pair16[tag] + r'$^{\ast}$'
             nm += f' ({geom[tag]})'
         else:
             sstr = x['site'][0]
             msn = re.match(r'([\d.]+)\((\d+)\)', sstr)
             neher_dev.append(dict(tag=tag, ours=ps, neher=float(msn.group(1)), dev=ps - float(msn.group(1))))
         lines2.append((ps, f'\\texttt{{{nm}}} & {comp_tex(th[(tag, "site")]["vertex_types"])} & {fmt(ps, es)} & {sstr} & '
-                           f'{fmt(pb, eb)} \\\\'))
+                           f'{fmt(pb, eb)} & {leb[tag]:.4f} \\\\'))
     lines2.sort(key=lambda t: -t[0])
     open('paper/tab_2uni.tex', 'w').write('\n'.join(l for _, l in lines2) + '\n')
     nd = np.array([d['dev'] for d in neher_dev])

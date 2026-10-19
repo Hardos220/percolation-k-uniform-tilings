@@ -84,3 +84,7 @@ __pycache__/
 !/results/atlas_check_summary.json
 !/results/review2_checks.json
 !/results/paper_rules_resid.npy
+!/results/review3_checks.json
+!/results/periodic_checks.json
+!/results/local_hierarchy_site.json
+!/results/local_hierarchy_bond.json

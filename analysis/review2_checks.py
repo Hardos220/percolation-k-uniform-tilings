@@ -80,7 +80,9 @@ def main():
         Xt, yt = X[T], y[T]
         H = Xt @ np.linalg.pinv(Xt.T @ Xt) @ Xt.T
         rt = yt - Xt @ bT
-        loo = rt / (1 - np.clip(np.diag(H), None, 1 - 1e-12))
+        # leverage 1 (the single tiling with a (4.8^2) vertex): no leave-one-out prediction exists
+        lev = np.diag(H)
+        loo = rt[lev < 1 - 1e-9] / (1 - lev[lev < 1 - 1e-9])
         res = X @ bT - y
         per_k = {int(kk): float(np.sqrt(np.mean(res[k == kk] ** 2))) for kk in range(5, 11)}
         lin[m] = dict(beta_train=dict(zip(types, map(float, bT))), se_train=dict(zip(types, map(float, sT))),
@@ -97,7 +99,11 @@ def main():
         a = ARCH.get(ty)
         c = [f'$({TEX[ty]})$', str(occ_train[ty]), str(occ_all[ty])]
         for mi, m in enumerate(('site', 'bond')):
-            c += [cell(lin[m]['beta_train'][ty], lin[m]['se_train'][ty]), cell(lin[m]['beta_all'][ty], lin[m]['se_all'][ty]),
+            # a type that occurs in a single tiling has leverage 1: its coefficient is that threshold, without error
+            c += [cell(lin[m]['beta_train'][ty], lin[m]['se_train'][ty]) if occ_train[ty] > 1
+                  else f"{lin[m]['beta_train'][ty]:.4f}$^\\ast$",
+                  cell(lin[m]['beta_all'][ty], lin[m]['se_all'][ty]) if occ_all[ty] > 1
+                  else f"{lin[m]['beta_all'][ty]:.4f}$^\\ast$",
                   f'{a[mi]:.4f}' if a else '']
         lines.append(' & '.join(c) + r' \\')
     open('paper/tab_beta.tex', 'w').write('\n'.join(lines) + '\n')

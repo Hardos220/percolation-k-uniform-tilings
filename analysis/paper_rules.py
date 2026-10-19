@@ -65,6 +65,15 @@ def main():
         beta, *_ = np.linalg.lstsq(X[T], y[T], rcond=None)
         e['Linear'] = X @ beta
         e['Linear-all'] = X @ np.linalg.lstsq(X, y, rcond=None)[0]  # in-sample variant (not used in Table IV)
+        # logit of p_c linear in the vertex fractions
+        g, *_ = np.linalg.lstsq(X[T], np.log(y[T] / (1 - y[T])), rcond=None)
+        e['Logit'] = 1 / (1 + np.exp(-(X @ g)))
+        # low rank: constant + faces per vertex f_n (n = 3, 4, 6, 8, 12); zbar = 2 + 2 sum f_n and
+        # sum (n - 2) f_n = 2 leave five independent parameters
+        F = np.array([[1.0] + [sum(float(xx) * ty.split('.').count(str(n)) / n for ty, xx in c.items())
+                               for n in (3, 4, 6, 8, 12)] for c in comps])
+        cf, *_ = np.linalg.lstsq(F[T], y[T], rcond=None)
+        e['Faces'] = F @ cf
         est[m] = e
     # site from bond
     pb, psite = pc['bond'], pc['site']
@@ -122,8 +131,10 @@ def main():
            'GM-fit': ('Galam--Mauger form, refitted', '2'),
            'Euler': ('Euler estimate $p^\\ast$~\\cite{Neher08}', '0'),
            'Euler+c': ('$p^\\ast$ + constant, refitted', '1'),
+           'Faces': ('linear in $f_n$ (and $\\zb$), refitted', '5'),
            'ArchAvg': ('Archimedean average, Eq.~\\eqref{eq:avg}', '0'),
-           'Linear': ('linear rule, Eq.~\\eqref{eq:mix}', '15')}
+           'Linear': ('linear rule, Eq.~\\eqref{eq:mix}', '15'),
+           'Logit': ('linear rule for $\\ln[\\pc/(1-\\pc)]$', '15')}
     lines = []
     for name, (txt, npar) in lab.items():
         cells = [txt, npar]

@@ -72,7 +72,10 @@ Parallel scripts read the number of worker processes from the environment variab
    `analysis/core_report.py`, `analysis/build_tables.py`, `analysis/atlas_rounds.py`, `analysis/atlas_check.py`,
    `analysis/slip_hp_summary.py`.
 4. From the processed results in `results/` (stored here) to the paper: `analysis/paper_tables.py`,
-   `analysis/paper_stats.py`, `analysis/paper_rules.py`, `analysis/review2_checks.py`,
+   `analysis/paper_stats.py`, `analysis/paper_rules.py`, `analysis/review2_checks.py`, `analysis/review3_checks.py`,
+   `analysis/periodic_checks.py` (exact symmetry groups, k orbits and pairwise non-isomorphism of all periodic
+   graphs; needs `data/cells`), `analysis/local_hierarchy.py 3 6 site` and `... bond` (local descriptors; needs
+   `data/cells`),
    `analysis/band_tm_nc.py 12`, `analysis/paper_figs.py` (the tiling figures need `data/cells` from step 1),
    `analysis/make_supplement.py`; then compile `paper/main.tex`.
 
