@@ -90,10 +90,12 @@ def fig_validation():
     b.axhline(0, color='0.4', lw=0.5)
     b.set_xlabel('torus size $N$ (sites)')
     b.set_ylabel(r'$p_N - p_c$  $(10^{-6})$')
-    b.set_ylim(-40, 15)
-    b.annotate(r'$-108$ at $N=64$', xy=(64, -40), xytext=(170, -38), fontsize=6.5, arrowprops=dict(arrowstyle='->', lw=0.5))
-    b.legend(loc='lower right', frameon=False, ncol=2, fontsize=6)
-    label(b, '(b)', x=0.02)
+    b.set_ylim(-40, 34)
+    b.annotate(r'$-108$ at $N=64$ (off scale)', xy=(64, -40), xytext=(330, -36), fontsize=6.5, va='center',
+               arrowprops=dict(arrowstyle='->', lw=0.5))
+    b.legend(loc='upper center', bbox_to_anchor=(0.53, 1.0), frameon=False, ncol=4, fontsize=5.8, columnspacing=0.8,
+             handletextpad=0.3, borderaxespad=0.3)
+    label(b, '(b)', x=0.03, y=0.3)
     fig.tight_layout(w_pad=1.0)
     fig.savefig(f'{OUT}/fig_validation.pdf')
 
