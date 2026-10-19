@@ -1,0 +1,86 @@
+# Whitelist: only the code and the data used in the paper are tracked.
+/*
+!/.gitignore
+!/LICENSE
+!/CITATION.cff
+!/README.md
+!/tools/
+!/tiling/
+!/nz/
+!/gpu/
+!/run/
+!/analysis/
+!/paper/
+!/reference/
+!/results/
+
+__pycache__/
+*.exe
+*.pyc
+*.part
+
+# simulation code: sources only
+/gpu/*
+!/gpu/nz_gpu.cu
+
+# job generators and job lists (seeds); scheduler-specific helpers are not tracked
+/run/*
+!/run/batch.py
+!/run/make_jobs.py
+!/run/make_core_tasks.py
+!/run/make_atlas_jobs.py
+!/run/make_atlas_topup.py
+!/run/make_fss_jobs.py
+!/run/make_slip_hp_jobs.py
+!/run/make_atlas_check.py
+!/run/jobs_atlas_c[0-9][0-9].txt
+!/run/jobs_atlasr1_c[0-9][0-9].txt
+!/run/jobs_fss.txt
+!/run/jobs_slip_hp_all.txt
+!/run/jobs_atlas_check.txt
+
+# analysis: pilot-only scripts are not tracked
+/analysis/gpu_compare.py
+/analysis/pilot_report.py
+/analysis/compare_2uniform.py
+
+# paper sources, tables, figures and the Supplemental Material archive
+/paper/*
+!/paper/main.tex
+!/paper/refs.bib
+!/paper/tab_*.tex
+!/paper/figs/
+!/paper/supplemental/
+/paper/supplemental/*
+!/paper/supplemental/README.txt
+!/paper/supplemental/supplemental_material.zip
+
+# reference values used by the scripts (no third-party documents)
+/reference/*
+!/reference/archimedean.json
+!/reference/two_uniform_reference.json
+
+# processed results (raw histograms are not tracked)
+/results/*
+!/results/tables/
+/results/tables/atlas_k5_10.csv
+/results/tables/core_k4.csv
+!/results/core/
+/results/core/*
+!/results/core/report_r0.json
+!/results/fss_summary.json
+!/results/slip_hp_summary.json
+!/results/slip_family.json
+!/results/slip_pairs_k6.json
+!/results/slip_pairs_exact.json
+!/results/band_tm.json
+!/results/band_tm_nc.json
+!/results/band_tm_pdep_W8.json
+!/results/paper_numbers.json
+!/results/paper_stats.json
+!/results/paper_rules.json
+!/results/atlas_rounds.json
+!/results/atlas_check_sample.json
+!/results/atlas_check_summary.json
+!/results/review2_checks.json
+!/results/paper_rules_resid.npy

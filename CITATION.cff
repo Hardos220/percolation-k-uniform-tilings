@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite it as below."
+title: "Site and bond percolation thresholds of all k-uniform tilings with k <= 10: code and data"
+authors:
+  - family-names: Elisov
+    given-names: Maksim
+    affiliation: Samara National Research University
+    orcid: "https://orcid.org/0009-0001-3097-2703"
+license: MIT
+repository-code: "https://github.com/Hardos220/percolation-k-uniform-tilings"
+keywords:
+  - percolation threshold
+  - k-uniform tilings
+  - tilings by regular polygons
+  - Newman-Ziff algorithm
+  - Monte Carlo
+version: 1.0.0
+date-released: "2026-10-19"
