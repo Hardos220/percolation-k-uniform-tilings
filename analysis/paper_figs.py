@@ -58,7 +58,7 @@ def fig_examples():
 def fig_validation():
     nums = json.load(open('results/paper_numbers.json'))
     fss = json.load(open('results/fss_summary.json'))
-    fig, (a, b) = plt.subplots(1, 2, figsize=(FULL, 2.3), gridspec_kw=dict(width_ratios=[1.15, 1]))
+    fig, (a, b) = plt.subplots(1, 2, figsize=(FULL, 2.6), gridspec_kw=dict(width_ratios=[1.15, 1]))
     groups = [('site', lambda e: e['mode'] == 'site', 'o', '#1f77b4'),
               ('bond', lambda e: e['mode'] == 'bond', 's', '#d62728')]
     for name, sel, mk, c in groups:
@@ -72,7 +72,6 @@ def fig_validation():
     a.set_xlabel('reference $p_c$')
     a.set_ylabel(r'$(p_c - p_c^{\rm ref})/\sigma$')
     a.set_ylim(-3.2, 3.2)
-    a.legend(loc='lower left', frameon=False, ncol=1, fontsize=6.3)
     label(a, '(a)', x=0.93)
     names = {'01__eu_4n_1_site': '$(4^4)$ site', '01__eu_4n_1_bond': '$(4^4)$ bond', '01__eu_6a_1_bond': '$(3^6)$ bond',
              '01__eu_3a_1_site': '$(3.12^2)$ site', '01__eu_3a_1_bond': '$(3.12^2)$ bond',
@@ -87,17 +86,21 @@ def fig_validation():
         b.errorbar(N * (1 + 0.025 * (i - 3.5)), dv, s, fmt=mk[i] + ('-' if sq else ''), ms=3, mfc='none', lw=0.6,
                    elinewidth=0.5, capsize=0, label=names.get(k, k), color='k' if sq else None)
     b.set_xscale('log')
+    b.set_yscale('symlog', linthresh=5, linscale=1.2)  # linear for |y| < 5, logarithmic beyond
     b.axhline(0, color='0.4', lw=0.5)
     b.set_xlabel('torus size $N$ (sites)')
     b.set_ylabel(r'$p_N - p_c$  $(10^{-6})$')
-    b.set_ylim(-40, 34)
-    b.annotate(r'$-108$ at $N=64$ (off scale)', xy=(64, -40), xytext=(330, -36), fontsize=6.5, va='center',
-               arrowprops=dict(arrowstyle='->', lw=0.5))
-    b.legend(loc='upper center', bbox_to_anchor=(0.53, 1.0), frameon=False, ncol=4, fontsize=5.8, columnspacing=0.8,
-             handletextpad=0.3, borderaxespad=0.3)
-    label(b, '(b)', x=0.03, y=0.3)
+    b.set_ylim(-200, 20)
+    yt = [-100, -10, 0, 10]
+    b.set_yticks(yt)
+    b.set_yticklabels([f'{t:d}'.replace('-', '−') for t in yt])
+    b.yaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    b.legend(loc='upper center', bbox_to_anchor=(0.5, -0.3), frameon=False, ncol=4, fontsize=6.3,
+             columnspacing=1.0, handletextpad=0.3)
+    label(b, '(b)', x=0.02, y=0.97)
+    a.legend(loc='upper center', bbox_to_anchor=(0.5, -0.3), frameon=False, ncol=2, fontsize=6.3)
     fig.tight_layout(w_pad=1.0)
-    fig.savefig(f'{OUT}/fig_validation.pdf')
+    fig.savefig(f'{OUT}/fig_validation.pdf', bbox_inches='tight', pad_inches=0.02)
 
 
 def fig_atlas():

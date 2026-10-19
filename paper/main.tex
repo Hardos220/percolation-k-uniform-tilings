@@ -107,7 +107,7 @@ Figure~\ref{fig:validation}(b) shows the finite-size behavior directly for eight
 
 \begin{figure*}
 \includegraphics[width=\textwidth]{figs/fig_validation.pdf}
-\caption{(a) Deviation of our thresholds from the 22 Archimedean reference values (exact values and Refs.~\cite{SudingZiff99,Jacobsen14,Jacobsen15,ScullardJacobsen20}) in units of the combined standard error. Filled symbols: the two thresholds that are exact on every finite torus by self-matching or self-duality, $\ps(3^6)$ and $\pb(4^4)$; they test the statistical errors only. The shaded band is $\pm1\sigma$. (b) Finite-size estimates $p_N$ of Eq.~\eqref{eq:cross} minus the reference value for eight Archimedean thresholds, as a function of the torus size. Only the square-lattice site threshold (connected symbols) shows a visible correction.}
+\caption{(a) Deviation of our thresholds from the 22 Archimedean reference values (exact values and Refs.~\cite{SudingZiff99,Jacobsen14,Jacobsen15,ScullardJacobsen20}) in units of the combined standard error. Filled symbols: the two thresholds that are exact on every finite torus by self-matching or self-duality, $\ps(3^6)$ and $\pb(4^4)$; they test the statistical errors only. The shaded band is $\pm1\sigma$. (b) Finite-size estimates $p_N$ of Eq.~\eqref{eq:cross} minus the reference value for eight Archimedean thresholds, as a function of the torus size; the vertical axis is linear for $|p_N-\pc|<5\times10^{-6}$ and logarithmic beyond. Only the square-lattice site threshold (connected symbols) shows a visible correction.}
 \label{fig:validation}
 \end{figure*}
 
@@ -176,6 +176,12 @@ rule & fitted & A & all & A & all\\
 \end{ruledtabular}
 \end{table*}
 
+\begin{figure*}
+\includegraphics[width=\textwidth]{figs/fig_formulas.pdf}
+\caption{Distribution of the errors of empirical estimates over the 23\,153 hold-out tilings with $k\ge5$: (a) site, (b) bond. Black: linear rule, Eq.~\eqref{eq:mix}, fitted on $k\le4$; blue: Euler-characteristic estimate $p^\ast$ of Ref.~\cite{Neher08}; red: Galam--Mauger formula~\cite{GalamMauger96} at $q=\zb$ (a few values below $-0.08$ are not shown).}
+\label{fig:formulas}
+\end{figure*}
+
 The data set is large enough to test empirical rules for $\pc$ in a regime where they were not calibrated. To compare rules that use different information on equal terms, we score all of them on the same hold-out sets of tilings with $k\ge5$; rules with free parameters are fitted on the 243 tilings with $k\le4$ only (Table~\ref{tab:rules}, Fig.~\ref{fig:formulas}). The fits are unweighted, and the hold-out tilings are mostly mixtures of common vertex types, which makes the hold-out set somewhat easier than the training set.
 
 \textit{Invariants.} Scher and Zallen observed that the critical filling fraction of disks centered on the occupied sites, with radius half the nearest-neighbor distance, is nearly the same for the common lattices: $0.44\pm0.02$ for the four two-dimensional lattices they considered~\cite{ScherZallen70}; Suding and Ziff found that a generalized filling factor correlates the Archimedean site thresholds well~\cite{SudingZiff99}. With unit edges and disks of diameter one, $\phi_c=\ps\rho\pi/4$, where $\rho$ is the number of vertices per unit area. Over all 23\,396 tilings we find $\phi_c=0.453\pm0.012$ (mean and standard deviation; 90\% of the values between 0.440 and 0.464). The invariant fails for open tilings with 8- and 12-gons, down to $\phi_c=0.316$ for $(3.12^2)$; without the 889 tilings that contain such polygons, $\phi_c=0.455\pm0.006$. For the bond rule $\zb\pb\approx d/(d-1)=2$, which Vyssotsky \textit{et al.} proposed tentatively~\cite{Vyssotsky61}, we find $\zb\pb=2.119\pm0.053$: the product is as constant as $\phi_c$ (relative standard deviation 2.5\%), but its value is 6\% above 2.
@@ -192,24 +198,6 @@ and for bond percolation, per bond, on the covering lattice,
 \end{equation}
 where $x_v$ is the fraction of vertices of degree $z_v$. Neher \textit{et al.} proposed the estimate $p^\ast$ given by $\chi(p^\ast)=\frac{\tau-2}{\tau-1}(2p^\ast-1)$ with $\tau=187/91$, and observed that the zero $p_0$ of $\chi$ lies beyond $\pc$ as seen from $1/2$. Our implementation reproduces their tabulated values of $p_0$ and $p^\ast$ for the Archimedean and two-uniform lattices~\cite{Neher08supp} to within $10^{-4}$. On the hold-out set, $p^\ast$ predicts the site thresholds with an rms error of $0.005$ and the bond thresholds with $0.016$; a constant offset fitted on $k\le4$ leaves the site error unchanged and reduces the bond error to $0.011$. The ordering of $p_0$ and $\pc$ holds for 99.8\% of the site thresholds but only for 73\% of the bond thresholds.
 
-\textit{Composition rules.} For the non-Archimedean tilings whose vertex types all occur in Archimedean lattices, a parameter-free rule is the composition-weighted average of the Archimedean thresholds,
-\begin{equation}
-\pc\approx\sum_t x_t\,\pc(t),
-\label{eq:avg}
-\end{equation}
-where $x_t$ is the fraction of vertices of type $t$ and $\pc(t)$ is the threshold of the Archimedean lattice of that type. On the hold-out set ``A'' its rms error is $1.5\times10^{-3}$ (site) and $1.7\times10^{-3}$ (bond). To cover all 15 vertex types, including the four without an Archimedean lattice, $(3^2.4.12)$, $(3^2.6^2)$, $(3.4.3.12)$, and $(3.4^2.6)$, we fitted the linear rule
-\begin{equation}
-\pc\approx\sum_t x_t\,\beta_t
-\label{eq:mix}
-\end{equation}
-with one coefficient per vertex type. The vertex fractions are the only input: the mean degree and the numbers of polygons of each size per vertex are linear combinations of them, so adding these quantities would not change a linear rule. All 15 types occur in the 243 tilings with $k\le4$, although $(4.8^2)$ only in its Archimedean lattice and the types with 12-gons in 10--16 tilings. Fitted on these 243 tilings, the rule has a leave-one-out cross-validation error of $3.6\times10^{-3}$ (site) and $4.8\times10^{-3}$ (bond), and it predicts the 23\,153 thresholds with $k\ge5$ with an rms error of $1.9\times10^{-3}$ (site) and $2.3\times10^{-3}$ (bond), and the subset ``A'' with $1.0\times10^{-3}$, better than Eq.~\eqref{eq:avg}. The hold-out error decreases with $k$, from $2.7\times10^{-3}$ at $k=5$ to $1.8\times10^{-3}$ at $k=10$ (site) and from $3.6\times10^{-3}$ to $2.2\times10^{-3}$ (bond). The rule is thus 2.5 (site) to 7 (bond) times more accurate than the Euler estimate $p^\ast$ and 6--17 times more accurate than the Galam--Mauger formula, at the price of 15 fitted coefficients against none or two. Table~\ref{tab:beta} lists the coefficients of the fit on $k\le4$, used for all hold-out results, and, for reference, of a fit to all 23\,396 tilings. For the common types the coefficients of the full fit are within about $0.004$ of the Archimedean thresholds; the largest differences, up to $0.03$, occur for the types with 12-gons and for $(6^3)$. For $(3.12^2)$ the coefficient exceeds the threshold of the Archimedean lattice of that type by 0.023 (site) and 0.031 (bond), so the linear rule does not reproduce this end member; the coefficients describe the mixtures that dominate the data set, not the pure lattices.
-
-\begin{figure*}
-\includegraphics[width=\textwidth]{figs/fig_formulas.pdf}
-\caption{Distribution of the errors of empirical estimates over the 23\,153 hold-out tilings with $k\ge5$: (a) site, (b) bond. Black: linear rule, Eq.~\eqref{eq:mix}, fitted on $k\le4$; blue: Euler-characteristic estimate $p^\ast$ of Ref.~\cite{Neher08}; red: Galam--Mauger formula~\cite{GalamMauger96} at $q=\zb$ (a few values below $-0.08$ are not shown).}
-\label{fig:formulas}
-\end{figure*}
-
 \begin{table*}
 \caption{Coefficients $\beta_t$ of the linear rule, Eq.~\eqref{eq:mix}: fit on the 243 tilings with $k\le4$ (used for all hold-out results) and, for reference, fit on all 23\,396 tilings. Standard errors from the residual scatter of the unweighted least-squares fit are given in parentheses. Also listed: the number of tilings that contain the vertex type, with $k\le4$ and in total, and the Archimedean thresholds $\pc(t)$ where they exist.}
 \label{tab:beta}
@@ -222,6 +210,18 @@ type & $k\le4$ & all & $\beta$ ($k\le4$) & $\beta$ (all) & $\ps(t)$ & $\beta$ ($
 \end{tabular}
 \end{ruledtabular}
 \end{table*}
+
+\textit{Composition rules.} For the non-Archimedean tilings whose vertex types all occur in Archimedean lattices, a parameter-free rule is the composition-weighted average of the Archimedean thresholds,
+\begin{equation}
+\pc\approx\sum_t x_t\,\pc(t),
+\label{eq:avg}
+\end{equation}
+where $x_t$ is the fraction of vertices of type $t$ and $\pc(t)$ is the threshold of the Archimedean lattice of that type. On the hold-out set ``A'' its rms error is $1.5\times10^{-3}$ (site) and $1.7\times10^{-3}$ (bond). To cover all 15 vertex types, including the four without an Archimedean lattice, $(3^2.4.12)$, $(3^2.6^2)$, $(3.4.3.12)$, and $(3.4^2.6)$, we fitted the linear rule
+\begin{equation}
+\pc\approx\sum_t x_t\,\beta_t
+\label{eq:mix}
+\end{equation}
+with one coefficient per vertex type. The vertex fractions are the only input: the mean degree and the numbers of polygons of each size per vertex are linear combinations of them, so adding these quantities would not change a linear rule. All 15 types occur in the 243 tilings with $k\le4$, although $(4.8^2)$ only in its Archimedean lattice and the types with 12-gons in 10--16 tilings. Fitted on these 243 tilings, the rule has a leave-one-out cross-validation error of $3.6\times10^{-3}$ (site) and $4.8\times10^{-3}$ (bond), and it predicts the 23\,153 thresholds with $k\ge5$ with an rms error of $1.9\times10^{-3}$ (site) and $2.3\times10^{-3}$ (bond), and the subset ``A'' with $1.0\times10^{-3}$, better than Eq.~\eqref{eq:avg}. The hold-out error decreases with $k$, from $2.7\times10^{-3}$ at $k=5$ to $1.8\times10^{-3}$ at $k=10$ (site) and from $3.6\times10^{-3}$ to $2.2\times10^{-3}$ (bond). The rule is thus 2.5 (site) to 7 (bond) times more accurate than the Euler estimate $p^\ast$ and 6--17 times more accurate than the Galam--Mauger formula, at the price of 15 fitted coefficients against none or two. Table~\ref{tab:beta} lists the coefficients of the fit on $k\le4$, used for all hold-out results, and, for reference, of a fit to all 23\,396 tilings. For the common types the coefficients of the full fit are within about $0.004$ of the Archimedean thresholds; the largest differences, up to $0.03$, occur for the types with 12-gons and for $(6^3)$. For $(3.12^2)$ the coefficient exceeds the threshold of the Archimedean lattice of that type by 0.023 (site) and 0.031 (bond), so the linear rule does not reproduce this end member; the coefficients describe the mixtures that dominate the data set, not the pure lattices.
 
 \subsection{Composition and arrangement}
 
@@ -264,17 +264,6 @@ To see how the effect of a slip depends on geometry, consider the family of Fig.
 
 \subsection{A transfer-matrix hypothesis}
 
-The slip changes only the relative registry of the strips. Consider the transfer matrix $\mathsf T$ that propagates the connectivity state of a row of the square band by one row (Appendix~\ref{app:tm}). It commutes with the shift $\mathsf S$ by one lattice spacing along the row, so its eigenvectors carry a momentum $\kappa$. A strip acts on the band as a boundary condition with period 2 along the row, i.e., with components in the sectors $\kappa=0$ and $\kappa=\pi$ only. Shifting one strip by one lattice spacing leaves the $\kappa=0$ component unchanged and reverses the sign of the $\kappa=\pi$ component. To first order in the coupling between the strips, the threshold difference is therefore carried by the propagation of the $\kappa=\pi$ component through the band,
-\begin{equation}
-\Delta(h)\simeq\sum_i A_i\lambda_{\pi,i}^{\,h},
-\label{eq:tm}
-\end{equation}
-where $\lambda_{\pi,i}$ are the eigenvalues of $\mathsf T$ in the $\kappa=\pi$ sector and the amplitudes $A_i$ depend on the strips. The band itself is slightly supercritical at the thresholds of the tilings ($p=0.51$ for bond and $0.62$ for site percolation, above the square-lattice thresholds), and the eigenvalues depend only weakly on $p$ (Appendix~\ref{app:tm}). Long-wavelength fluctuations live in the sector $\kappa\to0$; in the $\kappa=\pi$ sector, which describes a modulation on the lattice scale, all eigenvalues we computed are small, $|\lambda_\pi|<0.15$, so $\Delta$ decays exponentially with $h$.
-
-For bond percolation at $p=0.51$, the leading $\kappa=\pi$ eigenvalue on a cylinder of circumference $W$ is $\lambda_\pi=0.088$, 0.104, 0.115, 0.123, and 0.129 for $W=4$ to 12 (Table~\ref{tab:tm}). The increments decrease geometrically (ratio $\approx0.75$), and extrapolations in $1/W$, $1/W^2$, or by a geometric tail give $\lambda_\pi(W\to\infty)=0.15\pm0.01$. The leading eigenvalue has a nearly degenerate partner (0.128 at $W=12$), and further $\kappa=\pi$ eigenvalues follow at 0.090 and 0.074. The measured ratios, 0.121(3) for $h=1\to2$ and 0.17(4) for $h=2\to3$, are thus consistent in magnitude with $\lambda_\pi$. A weighted fit $\Delta(h)=A\lambda^h$ to all four bond values gives $\lambda=0.122(3)$ ($\chi^2=2.2$ for two degrees of freedom), dominated by $h=1$ and 2; without $h=1$ it gives $\lambda=0.18$ (68\% interval 0.14--0.21), in agreement with $\lambda_\pi=0.15\pm0.01$. More values at larger $h$ would be needed to determine the asymptotic rate from the data alone. The first ratio lies below the extrapolated $\lambda_\pi$; a ratio that increases toward $\lambda_\pi$ with $h$ is what Eq.~\eqref{eq:tm} gives when subleading modes contribute with the same sign at small $h$, but our data at $h\ge3$ are not precise enough to test this. For site percolation at $p=0.62$, the $\kappa=\pi$ sector contains positive and negative eigenvalues of similar magnitude: for $W=10$, $0.082$, $0.059$, $0.054$, and a twofold $-0.048$. A sign change of $\Delta$ is therefore allowed, and the measured ratio $-0.042(4)$ is consistent with a dominant contribution of the negative modes. With only two resolved values, however, the amplitudes cannot be determined independently, so the site data are consistent with Eq.~\eqref{eq:tm} but do not test it.
-
-These observations suggest the following conjecture. Consider tilings composed of fixed strips separated by bands of $h$ rows of a periodic lattice, and two registries of the strips that differ by a shift of momentum $\kappa_0$. Then $\lim_{h\to\infty}h^{-1}\ln|\Delta\pc(h)|=\ln|\lambda|$, where $\lambda$ is the eigenvalue of largest modulus of the infinite-circumference band transfer matrix in the sector $\kappa_0$ that has a nonzero amplitude, evaluated at the limiting threshold of the family. For the square band and $\kappa_0=\pi$ this predicts that the bond difference eventually falls by a factor of about 7 per row. The conjecture can be tested on families with larger $h$ and on other strip types, which would also check that the rate does not depend on the strips. A proof would require control of the critical model on the whole tiling beyond the first-order argument above.
-
 \begin{table*}
 \caption{Leading eigenvalues in the $\kappa=\pi$ sector of the transfer matrix of a square band of circumference $W$ (Appendix~\ref{app:tm}); bond at $p=0.51$, site at $p=0.62$. ``States'' is the number of non-crossing connectivity states. For site percolation the three largest positive and the two most negative eigenvalues are listed; at $W=10$ the negative one is twofold.}
 \label{tab:tm}
@@ -291,6 +280,18 @@ $W$ & states & $\lambda_{\pi,1}$ & $\lambda_{\pi,2}$ & $\lambda_{\pi,3}$ & state
 \end{tabular}
 \end{ruledtabular}
 \end{table*}
+
+
+The slip changes only the relative registry of the strips. Consider the transfer matrix $\mathsf T$ that propagates the connectivity state of a row of the square band by one row (Appendix~\ref{app:tm}). It commutes with the shift $\mathsf S$ by one lattice spacing along the row, so its eigenvectors carry a momentum $\kappa$. A strip acts on the band as a boundary condition with period 2 along the row, i.e., with components in the sectors $\kappa=0$ and $\kappa=\pi$ only. Shifting one strip by one lattice spacing leaves the $\kappa=0$ component unchanged and reverses the sign of the $\kappa=\pi$ component. To first order in the coupling between the strips, the threshold difference is therefore carried by the propagation of the $\kappa=\pi$ component through the band,
+\begin{equation}
+\Delta(h)\simeq\sum_i A_i\lambda_{\pi,i}^{\,h},
+\label{eq:tm}
+\end{equation}
+where $\lambda_{\pi,i}$ are the eigenvalues of $\mathsf T$ in the $\kappa=\pi$ sector and the amplitudes $A_i$ depend on the strips. The band itself is slightly supercritical at the thresholds of the tilings ($p=0.51$ for bond and $0.62$ for site percolation, above the square-lattice thresholds), and the eigenvalues depend only weakly on $p$ (Appendix~\ref{app:tm}). Long-wavelength fluctuations live in the sector $\kappa\to0$; in the $\kappa=\pi$ sector, which describes a modulation on the lattice scale, all eigenvalues we computed are small, $|\lambda_\pi|<0.15$, so $\Delta$ decays exponentially with $h$.
+
+For bond percolation at $p=0.51$, the leading $\kappa=\pi$ eigenvalue on a cylinder of circumference $W$ is $\lambda_\pi=0.088$, 0.104, 0.115, 0.123, and 0.129 for $W=4$ to 12 (Table~\ref{tab:tm}). The increments decrease geometrically (ratio $\approx0.75$), and extrapolations in $1/W$, $1/W^2$, or by a geometric tail give $\lambda_\pi(W\to\infty)=0.15\pm0.01$. The leading eigenvalue has a nearly degenerate partner (0.128 at $W=12$), and further $\kappa=\pi$ eigenvalues follow at 0.090 and 0.074. The measured ratios, 0.121(3) for $h=1\to2$ and 0.17(4) for $h=2\to3$, are thus consistent in magnitude with $\lambda_\pi$. A weighted fit $\Delta(h)=A\lambda^h$ to all four bond values gives $\lambda=0.122(3)$ ($\chi^2=2.2$ for two degrees of freedom), dominated by $h=1$ and 2; without $h=1$ it gives $\lambda=0.18$ (68\% interval 0.14--0.21), in agreement with $\lambda_\pi=0.15\pm0.01$. More values at larger $h$ would be needed to determine the asymptotic rate from the data alone. The first ratio lies below the extrapolated $\lambda_\pi$; a ratio that increases toward $\lambda_\pi$ with $h$ is what Eq.~\eqref{eq:tm} gives when subleading modes contribute with the same sign at small $h$, but our data at $h\ge3$ are not precise enough to test this. For site percolation at $p=0.62$, the $\kappa=\pi$ sector contains positive and negative eigenvalues of similar magnitude: for $W=10$, $0.082$, $0.059$, $0.054$, and a twofold $-0.048$. A sign change of $\Delta$ is therefore allowed, and the measured ratio $-0.042(4)$ is consistent with a dominant contribution of the negative modes. With only two resolved values, however, the amplitudes cannot be determined independently, so the site data are consistent with Eq.~\eqref{eq:tm} but do not test it.
+
+These observations suggest the following conjecture. Consider tilings composed of fixed strips separated by bands of $h$ rows of a periodic lattice, and two registries of the strips that differ by a shift of momentum $\kappa_0$. Then $\lim_{h\to\infty}h^{-1}\ln|\Delta\pc(h)|=\ln|\lambda|$, where $\lambda$ is the eigenvalue of largest modulus of the infinite-circumference band transfer matrix in the sector $\kappa_0$ that has a nonzero amplitude, evaluated at the limiting threshold of the family. For the square band and $\kappa_0=\pi$ this predicts that the bond difference eventually falls by a factor of about 7 per row. The conjecture can be tested on families with larger $h$ and on other strip types, which would also check that the rate does not depend on the strips. A proof would require control of the critical model on the whole tiling beyond the first-order argument above.
 
 %=====================================================================
 \section{Conclusions}\label{sec:concl}
