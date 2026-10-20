@@ -1,0 +1,126 @@
+{
+ "source": "H. Gu and R. M. Ziff, unpublished. The values were posted in August-September 2009 in the bond column of the two-uniform table of the Wikipedia article \"Percolation threshold\" with the reference \"H. Gu, R. M. Ziff, Percolation thresholds of 2-uniform lattice, to be published (2007)\"; that reference was removed on 2019-06-19. Transcribed from the current article on 2026-10-20 (unchanged since 2009-09-30). Lattice numbers as in Neher et al. (2008).",
+ "note": "error in units of the last digit (1e-8)",
+ "lattices": [
+  {
+   "neher_number": 41,
+   "tag": "02__2__eu_3a_4b_1",
+   "bond": 0.67493252,
+   "err": 3.6e-07
+  },
+  {
+   "neher_number": 42,
+   "tag": "02__2__eu_3c_4l_1",
+   "bond": 0.64536587,
+   "err": 4e-07
+  },
+  {
+   "neher_number": 36,
+   "tag": "02__2__eu_4a_6d_1",
+   "bond": 0.55778329,
+   "err": 4e-07
+  },
+  {
+   "neher_number": 15,
+   "tag": "02__2__eu_4d_4f_1",
+   "bond": 0.53632487,
+   "err": 4e-07
+  },
+  {
+   "neher_number": 34,
+   "tag": "02__2__eu_4d_6a_1",
+   "bond": 0.51707873,
+   "err": 7e-07
+  },
+  {
+   "neher_number": 16,
+   "tag": "02__2__eu_4f_4k_2",
+   "bond": 0.51891529,
+   "err": 3.5e-07
+  },
+  {
+   "neher_number": 17,
+   "tag": "02__2__eu_4f_4k_1",
+   "bond": 0.51769462,
+   "err": 3.5e-07
+  },
+  {
+   "neher_number": 35,
+   "tag": "02__2__eu_4k_4l_1",
+   "bond": 0.51973831,
+   "err": 4e-07
+  },
+  {
+   "neher_number": 11,
+   "tag": "02__2__eu_4d_5a_1",
+   "bond": 0.4892128,
+   "err": 3.7e-07
+  },
+  {
+   "neher_number": 37,
+   "tag": "02__2__eu_4l_5c_1",
+   "bond": 0.47229486,
+   "err": 3.8e-07
+  },
+  {
+   "neher_number": 30,
+   "tag": "02__2__eu_4l_5e_1",
+   "bond": 0.46573078,
+   "err": 7.2e-07
+  },
+  {
+   "neher_number": 23,
+   "tag": "02__2__eu_4s_5c_1",
+   "bond": 0.45844622,
+   "err": 4e-07
+  },
+  {
+   "neher_number": 22,
+   "tag": "02__2__eu_4p_5c_1",
+   "bond": 0.44528611,
+   "err": 4e-07
+  },
+  {
+   "neher_number": 12,
+   "tag": "02__2__eu_5a_6d_1",
+   "bond": 0.4110989,
+   "err": 3.7e-07
+  },
+  {
+   "neher_number": 33,
+   "tag": "02__2__eu_5d_5f_1",
+   "bond": 0.41628021,
+   "err": 3.5e-07
+  },
+  {
+   "neher_number": 32,
+   "tag": "02__2__eu_5c_5f_1",
+   "bond": 0.41549285,
+   "err": 3.6e-07
+  },
+  {
+   "neher_number": 31,
+   "tag": "02__2__eu_5e_6a_1",
+   "bond": 0.40379585,
+   "err": 4e-07
+  },
+  {
+   "neher_number": 13,
+   "tag": "02__2__eu_5b_6j_1",
+   "bond": 0.38914898,
+   "err": 3.5e-07
+  },
+  {
+   "neher_number": 21,
+   "tag": "02__2__eu_5c_6f_1",
+   "bond": 0.39491996,
+   "err": 4e-07
+  },
+  {
+   "neher_number": 20,
+   "tag": "02__2__eu_5c_6i_1",
+   "bond": 0.38285085,
+   "err": 3.8e-07
+  }
+ ]
+}

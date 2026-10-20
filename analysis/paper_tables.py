@@ -128,8 +128,8 @@ def main():
     # Neher et al. list both values for this composition without distinguishing the lattices; Lebrecht et al.
     # (Table 2) pair 0.6286 with bond 0.5189 and 0.6279 with 0.5177, i.e. with our eclipsed and staggered tilings
     pair16 = {'02__2__eu_4f_4k_2': '0.6286(2)', '02__2__eu_4f_4k_1': '0.6279(2)'}
-    # four-decimal bond values of Lebrecht et al. (2021), Table 2 (results/review3_checks.json)
-    leb = {t: v['bond_lebrecht'] for t, v in json.load(open('results/review3_checks.json'))['lebrecht_bond']['rows'].items()}
+    # unpublished bond values of Gu and Ziff (reference/two_uniform_bond_guziff.json)
+    gzb = {x['tag']: (x['bond'], x['err']) for x in json.load(open('reference/two_uniform_bond_guziff.json'))['lattices']}
     lines2 = []
     neher_dev = []
     for x in two:
@@ -145,7 +145,7 @@ def main():
             msn = re.match(r'([\d.]+)\((\d+)\)', sstr)
             neher_dev.append(dict(tag=tag, ours=ps, neher=float(msn.group(1)), dev=ps - float(msn.group(1))))
         lines2.append((ps, f'\\texttt{{{nm}}} & {comp_tex(th[(tag, "site")]["vertex_types"])} & {fmt(ps, es)} & {sstr} & '
-                           f'{fmt(pb, eb)} & {leb[tag]:.4f} \\\\'))
+                           f'{fmt(pb, eb)} & {gzb[tag][0]:.8f}({round(gzb[tag][1] * 1e8)}) \\\\'))
     lines2.sort(key=lambda t: -t[0])
     open('paper/tab_2uni.tex', 'w').write('\n'.join(l for _, l in lines2) + '\n')
     nd = np.array([d['dev'] for d in neher_dev])

@@ -156,6 +156,24 @@ def main():
     d = np.array([v['diff'] for v in dl.values()])
     out['lebrecht_bond'] = dict(n=len(dl), max_abs_diff=float(np.abs(d).max()), rms=float(np.sqrt(np.mean(d * d))),
                                 n_within_rounding=int(np.sum(np.abs(d) <= 5e-5 + 1e-9)), rows=dl)
+    # (8) unpublished bond values of Gu and Ziff (reference/two_uniform_bond_guziff.json)
+    gz = json.load(open('reference/two_uniform_bond_guziff.json'))['lattices']
+    pcs = json.load(open('results/periodic_checks.json'))['per_tiling']
+    z, dd, ee, z_aniso = [], [], [], []
+    for x in gz:
+        p, s = float(th[(x['tag'], 'bond')]['pc']), float(th[(x['tag'], 'bond')]['err'])
+        e = math.hypot(s, x['err'])
+        z.append((p - x['bond']) / e)
+        dd.append(p - x['bond'])
+        ee.append(e)
+        if not any(q in pcs[x['tag']]['rot'] for q in (3, 4, 6)):
+            z_aniso.append(z[-1])
+    z, dd, ee = np.array(z), np.array(dd), np.array(ee)
+    w = 1 / ee ** 2
+    out['guziff_bond'] = dict(n=len(z), chi2=float(np.sum(z * z)), mean_z=float(z.mean()), rms_z=float(np.sqrt(np.mean(z * z))),
+                              max_abs_z=float(np.abs(z).max()), mean_diff=float(np.sum(w * dd) / w.sum()),
+                              mean_diff_err=float(1 / math.sqrt(w.sum())), n_aniso=len(z_aniso),
+                              chi2_aniso=float(np.sum(np.square(z_aniso))))
     json.dump(out, open('results/review3_checks.json', 'w'), indent=1)
     print(json.dumps({kk: v for kk, v in out.items() if kk != 'lebrecht_bond'}, indent=1))
     lb = out['lebrecht_bond']

@@ -68,7 +68,7 @@ Parallel scripts read the number of worker processes from the environment variab
    and were run with `gpu/nz_gpu.cu`; further lists: finite-size study (`jobs_fss.txt`), slip pairs
    (`jobs_slip_hp*.txt`), atlas check (`jobs_atlas_check.txt`). Runs are limited by CPU time, so the number of
    samples, not the results, depends on the machine.
-3. From the raw histograms to the tables (needs the outputs of step 2, about 320 MB, not stored here):
+3. From the raw histograms to the tables (needs the outputs of step 2, about 330 MB, attached to release v1.1):
    `analysis/core_report.py`, `analysis/build_tables.py`, `analysis/atlas_rounds.py`, `analysis/atlas_check.py`,
    `analysis/slip_hp_summary.py`.
 4. From the processed results in `results/` (stored here) to the paper: `analysis/paper_tables.py`,
@@ -78,6 +78,9 @@ Parallel scripts read the number of worker processes from the environment variab
    `data/cells`),
    `analysis/band_tm_nc.py 12`, `analysis/paper_figs.py` (the tiling figures need `data/cells` from step 1),
    `analysis/make_supplement.py`; then compile `paper/main.tex`.
+5. Coupled runs of slip pairs: `analysis/slip_coupled_cells.py` (cells with a common numbering), `nz/nz_pair.c` or
+   `gpu/nz_pair_gpu.cu` (task lists `run/jobs_slip_coupled_gpu.txt`, `run/slip_coupled.py` for CPU runs),
+   `analysis/slip_coupled_summary.py`; extra core runs: `analysis/core_extra.py`. Raw histograms: release v1.1.
 
 ## License
 

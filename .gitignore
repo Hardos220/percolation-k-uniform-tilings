@@ -88,3 +88,12 @@ __pycache__/
 !/results/periodic_checks.json
 !/results/local_hierarchy_site.json
 !/results/local_hierarchy_bond.json
+!/reference/two_uniform_bond_guziff.json
+!/run/slip_coupled.py
+!/gpu/nz_pair_gpu.cu
+!/gpu/run_pairs.sh
+!/gpu/check_pairs.sh
+!/run/jobs_slip_coupled_gpu.txt
+!/run/jobs_snub_extra_gpu.txt
+!/results/slip_coupled_summary.json
+!/results/core_extra_note.txt

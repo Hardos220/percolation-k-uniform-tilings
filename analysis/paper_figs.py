@@ -165,26 +165,54 @@ def fig_formulas():
 
 
 def slip_family():
-    """h, staggered tag, eclipsed tag, site (d, s), bond (d, s) with d = p(eclipsed) - p(staggered)."""
+    """h, staggered tag, eclipsed tag, site (d, s, source), bond (d, s, source), d = p(eclipsed) - p(staggered).
+
+    Sources: 'coupled' (results/slip_coupled_summary.json: runs of both members on the same torus with a common
+    random order; the value on the largest torus, runs on one torus combined with inverse-variance weights; all
+    tori in <mode>_tori), otherwise 'core' (difference of the extrapolated core thresholds)."""
     core = json.load(open('results/core/report_r0.json'))
     pc = {(r['tag'], r['mode']): (r['pc'], r['spc']) for r in core}
-    hp = json.load(open('results/slip_hp_summary.json'))
+    cp = json.load(open('results/slip_coupled_summary.json')) if os.path.exists('results/slip_coupled_summary.json') else {}
     fam = [(1, '02__2__eu_4f_4k_1', '02__2__eu_4f_4k_2'), (2, '03__3__eu_4f_4k_4r_1', '03__3__eu_4f_4k_4s_1'),
-           (3, '03__3__eu_4f_4k_4u_1', '03__3__eu_4f_4k_4u_2'), (4, '04__3_211__eu_4f_4k_4u2_1', '04__3_211__eu_4f_4k_4u2_2')]
+           (3, '03__3__eu_4f_4k_4u_1', '03__3__eu_4f_4k_4u_2'), (4, '04__3_211__eu_4f_4k_4r_4u_1', '04__3_211__eu_4f_4k_4s_4u_1'),
+           (5, '04__3_211__eu_4f_4k_4u2_1', '04__3_211__eu_4f_4k_4u2_2')]
     out = []
     for h, a, b in fam:
-        for t in (a, b):  # orientation check: eclipsed has T2 orthogonal to T1
+        for t in (a, b):  # eclipsed: T2 orthogonal to T1; band height = distance between strips - sqrt(3)
             d = json.load(open(f'data/cells/{t}.json'))
             T1, T2 = np.array(d['T1']), np.array(d['T2'])
             proj = abs(T1 @ T2) / np.linalg.norm(T1)
             assert (proj < 1e-6) == (t == b), (t, proj)
+            perp = abs(T1[0] * T2[1] - T1[1] * T2[0]) / np.linalg.norm(T1)
+            assert abs(perp - math.sqrt(3) - h) < 1e-6, (t, perp)
         rec = dict(h=h, staggered=a, eclipsed=b)
         for m in ('site', 'bond'):
             (pa, sa), (pb, sb) = pc[(a, m)], pc[(b, m)]
             rec[m] = (pb - pa, math.hypot(sa, sb), 'core')
-        key = f'h={h}'
-        if key in hp:
-            rec['site'] = (hp[key]['d'], hp[key]['sd'], 'hp')
+            tori = {}
+            for key, v in cp.items():
+                if not key.startswith(f'{b}__{m}__') or 'pilot' in v.get('dir', ''):
+                    continue
+                tori.setdefault(key.split('__')[-1] if key.split('__')[-1].count('x') == 1 else key.split('__')[-2], []).append(v)
+            if tori:
+                comb = {}
+                for tor, vs in tori.items():
+                    w = np.array([1 / x['s_delta'] ** 2 for x in vs])
+                    dv = np.array([x['delta'] for x in vs])
+                    comb[tor] = dict(N=vs[0]['N'], delta=float(np.sum(w * dv) / w.sum()), s=float(1 / math.sqrt(w.sum())),
+                                     samples=int(sum(x['samples'] for x in vs)))
+                # several torus sizes: weighted mean if they agree (chi2/dof < 3), else the largest torus
+                vals = list(comb.values())
+                w = np.array([1 / v['s'] ** 2 for v in vals])
+                dv = np.array([v['delta'] for v in vals])
+                mean = float(np.sum(w * dv) / w.sum())
+                chi2 = float(np.sum(w * (dv - mean) ** 2))
+                if len(vals) == 1 or chi2 / (len(vals) - 1) < 3:
+                    rec[m] = (mean, float(1 / math.sqrt(w.sum())), 'coupled')
+                else:
+                    big = max(vals, key=lambda x: x['N'])
+                    rec[m] = (big['delta'], big['s'], 'coupled')
+                rec[m + '_tori'] = comb
         out.append(rec)
     return out
 
@@ -199,7 +227,7 @@ def fig_slip():
         draw(ax, tag, (-5.5, 5.5), (-5.2, 5.2), R=7, lw=0.35, cell=False, rot=rot_of(tag))
         ax.set_title(lab, fontsize=8, loc='left')
     ax = fig.add_subplot(gs[0, 2])
-    hh = np.linspace(1, 4, 50)
+    hh = np.linspace(1, 5, 50)
     for m, c, mk in (('site', '#1f77b4', 'o'), ('bond', '#d62728', 's')):
         h = np.array([r['h'] for r in fam])
         d = np.array([r[m][0] for r in fam])
@@ -220,8 +248,8 @@ def fig_slip():
     ax.set_yscale('log')
     ax.set_xlabel('square-band height $h$')
     ax.set_ylabel(r'$|\Delta p_c|$')
-    ax.set_xticks([1, 2, 3, 4])
-    ax.set_ylim(3e-7, 3e-2)
+    ax.set_xticks([1, 2, 3, 4, 5])
+    ax.set_ylim(1e-7, 3e-2)
     ax.legend(loc='upper right', frameon=False, fontsize=6.3)
     ax.text(0.03, 0.06, '(c)', transform=ax.transAxes, fontsize=9, fontweight='bold')
     ax.yaxis.set_label_position('right')
