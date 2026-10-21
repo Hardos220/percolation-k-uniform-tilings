@@ -106,3 +106,4 @@ __pycache__/
 !/results/atlas_check_sample_sq.json
 !/results/band_tm_nc_plimit.json
 !/results/exact_check.json
+!/results/degeneracy_candidates.json
