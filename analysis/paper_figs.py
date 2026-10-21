@@ -227,31 +227,25 @@ def fig_slip():
         draw(ax, tag, (-5.5, 5.5), (-5.2, 5.2), R=7, lw=0.35, cell=False, rot=rot_of(tag))
         ax.set_title(lab, fontsize=8, loc='left')
     ax = fig.add_subplot(gs[0, 2])
-    hh = np.linspace(1, 5, 50)
-    for m, c, mk in (('site', '#1f77b4', 'o'), ('bond', '#d62728', 's')):
-        h = np.array([r['h'] for r in fam])
-        d = np.array([r[m][0] for r in fam])
-        s = np.array([r[m][1] for r in fam])
-        res = np.abs(d) > 2 * s
-        pos, neg = res & (d > 0), res & (d < 0)
-        ax.errorbar(h[pos], d[pos], s[pos], fmt=mk, color=c, ms=4, capsize=1.5, elinewidth=0.6, label=f'{m}, $\\Delta>0$')
-        if neg.any():
-            ax.errorbar(h[neg], -d[neg], s[neg], fmt=mk, color=c, mfc='white', ms=4, capsize=1.5, elinewidth=0.6,
-                        label=f'{m}, $\\Delta<0$')
-        ul = ~res  # not resolved: 2-sigma upper limit on |Delta|
-        dx = -0.06 if m == 'site' else 0.06
-        ax.errorbar(h[ul] + dx, np.abs(d[ul]) + 2 * s[ul], yerr=0.35 * (np.abs(d[ul]) + 2 * s[ul]), uplims=True, fmt='none',
-                    ecolor=c, elinewidth=0.7, capsize=2, label=f'{m}, 2$\\sigma$ upper limit')
-        if m == 'bond':  # single dominant kappa = pi mode: Delta(h) = Delta(1) lambda^(h-1), lambda(W -> inf) = 0.14-0.16
-            ax.fill_between(hh, d[0] * 0.14 ** (hh - 1), d[0] * 0.16 ** (hh - 1), color=c, alpha=0.15, lw=0)
-            ax.plot(hh, d[0] * 0.15 ** (hh - 1), '--', color=c, lw=0.7)
-    ax.set_yscale('log')
+    # ratios of successive bond differences, Delta(h+1)/Delta(h), with the transfer-matrix eigenvalue
+    h = np.array([r['h'] for r in fam], float)
+    d = np.array([r['bond'][0] for r in fam])
+    s = np.array([r['bond'][1] for r in fam])
+    q = d[1:] / d[:-1]
+    sq = np.abs(q) * np.hypot(s[1:] / d[1:], s[:-1] / d[:-1])
+    hh = np.linspace(0.8, 4.2, 100)
+    ax.axhspan(0.14, 0.16, color='#d62728', alpha=0.13, lw=0)
+    ax.axhline(0.15, color='#d62728', lw=0.7, ls='--', label=r'$\lambda_\pi(W\to\infty)=0.15\pm0.01$')
+    ax.plot(hh, 0.15 * (hh / (hh + 1)) ** 0.3, color='0.35', lw=0.8, ls=':', label=r'$0.15\,[h/(h+1)]^{0.3}$')
+    ax.errorbar(h[:-1], q, sq, fmt='s', color='#d62728', ms=4, capsize=1.5, elinewidth=0.6,
+                label=r'bond, $\Delta(h+1)/\Delta(h)$')
     ax.set_xlabel('square-band height $h$')
-    ax.set_ylabel(r'$|\Delta p_c|$')
-    ax.set_xticks([1, 2, 3, 4, 5])
-    ax.set_ylim(1e-7, 3e-2)
-    ax.legend(loc='upper right', frameon=False, fontsize=6.3)
-    ax.text(0.03, 0.06, '(c)', transform=ax.transAxes, fontsize=9, fontweight='bold')
+    ax.set_ylabel(r'$\Delta(h+1)/\Delta(h)$')
+    ax.set_xticks([1, 2, 3, 4])
+    ax.set_xlim(0.6, 4.4)
+    ax.set_ylim(-0.03, 0.27)
+    ax.legend(loc='upper left', frameon=False, fontsize=6.3)
+    ax.text(0.9, 0.9, '(c)', transform=ax.transAxes, fontsize=9, fontweight='bold')
     ax.yaxis.set_label_position('right')
     ax.yaxis.tick_right()
     fig.subplots_adjust(left=0.01, right=0.93, top=0.92, bottom=0.17)

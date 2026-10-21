@@ -71,11 +71,31 @@ def main():
     T = k <= 4
     occ_train = {ty: int(np.sum(X[T, i] > 0)) for i, ty in enumerate(types)}
     occ_all = {ty: int(np.sum(X[:, i] > 0)) for i, ty in enumerate(types)}
+    gkey = [tuple(sorted(c.items())) for c in comps]
+
+    def group_bootstrap(mask, y, B=400, seed=2026):
+        """Standard errors of the coefficients from resampling whole composition groups (residuals are
+        correlated within a composition); a type's error uses only resamples that contain the type."""
+        rng = np.random.default_rng(seed)
+        groups = collections.defaultdict(list)
+        for i in np.where(mask)[0]:
+            groups[gkey[i]].append(i)
+        gl = list(groups.values())
+        bs, present = [], []
+        for _ in range(B):
+            ii = np.concatenate([gl[j] for j in rng.integers(0, len(gl), len(gl))])
+            bs.append(np.linalg.lstsq(X[ii], y[ii], rcond=None)[0])
+            present.append((X[ii] > 0).any(axis=0))
+        bs, present = np.array(bs), np.array(present)
+        return np.array([np.std(bs[present[:, j], j]) if present[:, j].sum() > 10 else np.nan for j in range(X.shape[1])])
+
     lin = {}
     for m in ('site', 'bond'):
         y = np.array([float(th[(t, m)]['pc']) for t in tags])
         bT, sT, _ = ols(X[T], y[T])
         bA, sA, _ = ols(X, y)
+        sT = group_bootstrap(T, y)
+        sA = group_bootstrap(np.ones(len(tags), bool), y)
         # leave-one-out on the training set
         Xt, yt = X[T], y[T]
         H = Xt @ np.linalg.pinv(Xt.T @ Xt) @ Xt.T

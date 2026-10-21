@@ -99,3 +99,4 @@ __pycache__/
 !/results/core_extra_note.txt
 !/.zenodo.json
 !/paper/main.pdf
+!/results/review4_checks.json
