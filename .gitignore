@@ -97,3 +97,5 @@ __pycache__/
 !/run/jobs_snub_extra_gpu.txt
 !/results/slip_coupled_summary.json
 !/results/core_extra_note.txt
+!/.zenodo.json
+!/paper/main.pdf

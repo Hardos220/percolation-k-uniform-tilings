@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this code or data, please cite it as below."
-title: "Site and bond percolation thresholds of all k-uniform tilings with k <= 10: code and data"
+title: "Site and bond percolation thresholds of all k-uniform tilings with k <= 10: manuscript, code and data"
 authors:
   - family-names: Elisov
     given-names: Maksim
@@ -14,5 +14,5 @@ keywords:
   - tilings by regular polygons
   - Newman-Ziff algorithm
   - Monte Carlo
-version: 1.0.0
-date-released: "2026-10-19"
+version: 1.2.0
+date-released: "2026-10-21"

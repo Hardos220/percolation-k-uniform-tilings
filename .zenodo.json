@@ -1,0 +1,31 @@
+{
+  "title": "Site and bond percolation thresholds of all k-uniform tilings with k <= 10: manuscript, code and data",
+  "upload_type": "software",
+  "description": "<p>Preprint, code, and processed data for the paper <em>Site and bond percolation thresholds of all k-uniform tilings with k &le; 10</em> by M. Elisov.</p><p>The archive contains the manuscript (paper/main.pdf and its LaTeX sources), the simulation codes (Newman&ndash;Ziff Monte Carlo on tori, CPU and GPU versions, including coupled runs of slip pairs), the conversion of the tiling catalog into periodic graphs and its exact verification, the job lists with their random seeds, the site and bond thresholds of all 23,396 k-uniform tilings with k &le; 10 (results/tables/all_thresholds.csv), the processed results, the Supplemental Material, and the scripts that generate all tables and figures. The raw histograms of the simulations are attached to the corresponding GitHub release.</p><p>Code: MIT License. Data and manuscript: CC BY 4.0.</p>",
+  "creators": [
+    {
+      "name": "Elisov, Maksim",
+      "affiliation": "Samara National Research University",
+      "orcid": "0009-0001-3097-2703"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "percolation threshold",
+    "k-uniform tilings",
+    "tilings by regular polygons",
+    "site percolation",
+    "bond percolation",
+    "Newman-Ziff algorithm",
+    "Monte Carlo",
+    "critical polynomial"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Hardos220/percolation-k-uniform-tilings",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "language": "eng"
+}
