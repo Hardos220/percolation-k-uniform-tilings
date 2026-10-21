@@ -19,8 +19,23 @@ from estimators import p_cross  # noqa: E402
 from wrap import Hist  # noqa: E402
 
 
+def bias_upper_bound(rs):
+    """95% one-sided upper bound on the rms finite-size bias in units of the atlas error: Delta_i ~ N(0,
+    s_Delta_i^2 + (beta s_atlas_i)^2), profile likelihood, 2 Delta lnL = 2.71."""
+    d = np.array([r['d'] for r in rs])
+    sd = np.array([r['sd'] for r in rs])
+    sa = np.array([r['s_atlas'] for r in rs])
+    betas = np.linspace(0, 1.5, 3001)
+    ll = np.array([-0.5 * np.sum(np.log(sd ** 2 + (b * sa) ** 2) + d ** 2 / (sd ** 2 + (b * sa) ** 2)) for b in betas])
+    i0 = int(np.argmax(ll))
+    ok = betas[(betas >= betas[i0]) & (2 * (ll[i0] - ll) <= 2.71)]
+    return float(betas[i0]), float(ok.max())
+
+
 def main():
     sample = json.load(open('results/atlas_check_sample.json'))
+    if os.path.exists('results/atlas_check_sample_sq.json'):  # stratum S: largest square domains (fourth review)
+        sample += json.load(open('results/atlas_check_sample_sq.json'))
     src = atlas_sources()
     rows = []
     for rec in sample:
@@ -51,7 +66,9 @@ def main():
     for g, rs in sorted(groups.items()):
         z = np.array([r['z'] for r in rs])
         q = np.array([r['d_over_sa'] for r in rs])
+        best, ub = bias_upper_bound(rs)
         out['strata'][g] = dict(n=len(rs), mean_z=float(z.mean()), rms_z=float(np.sqrt((z * z).mean())),
+                                bias_rms_best=best, bias_rms_ub95=ub,
                                 n_absz_gt3=int((np.abs(z) > 3).sum()), mean_d_over_sigma_atlas=float(q.mean()),
                                 max_abs_d_over_sigma_atlas=float(np.abs(q).max()),
                                 frac_abs_d_gt_sigma_atlas=float((np.abs(q) > 1).mean()),
@@ -59,7 +76,7 @@ def main():
                                 max_abs_d=float(np.max([abs(r['d']) for r in rs])))
     json.dump(out, open('results/atlas_check_summary.json', 'w'), indent=1)
     for g, v in out['strata'].items():
-        print(f"{g:8s} n={v['n']:3d}  mean z {v['mean_z']:+.2f}  rms z {v['rms_z']:.2f}  |z|>3: {v['n_absz_gt3']}  "
+        print(f"{g:8s} n={v['n']:3d}  mean z {v['mean_z']:+.2f}  rms z {v['rms_z']:.2f}  |z|>3: {v['n_absz_gt3']}  bias ub95 {v['bias_rms_ub95']:.2f}  "
               f"mean d/sa {v['mean_d_over_sigma_atlas']:+.2f}  max |d|/sa {v['max_abs_d_over_sigma_atlas']:.2f}  "
               f"max |d| {v['max_abs_d']:.1e}")
     worst = sorted(rows, key=lambda r: -abs(r['z']))[:8]

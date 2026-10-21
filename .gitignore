@@ -100,3 +100,9 @@ __pycache__/
 !/.zenodo.json
 !/paper/main.pdf
 !/results/review4_checks.json
+!/run/make_atlas_check_sq.py
+!/run/jobs_atlas_check_sq_local.txt
+!/run/jobs_atlas_check_sq_remote.txt
+!/results/atlas_check_sample_sq.json
+!/results/band_tm_nc_plimit.json
+!/results/exact_check.json
