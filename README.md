@@ -1,5 +1,7 @@
 # Site and bond percolation thresholds of all k-uniform tilings with k ≤ 10
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23533708.svg)](https://doi.org/10.5281/zenodo.23533708)
+
 Code and data for the paper *Site and bond percolation thresholds of all k-uniform tilings with k ≤ 10* by
 Maksim Elisov (Samara National Research University), submitted to Physical Review E.
 
@@ -80,7 +82,7 @@ Parallel scripts read the number of worker processes from the environment variab
    `analysis/make_supplement.py`; then compile `paper/main.tex`.
 5. Coupled runs of slip pairs: `analysis/slip_coupled_cells.py` (cells with a common numbering), `nz/nz_pair.c` or
    `gpu/nz_pair_gpu.cu` (task lists `run/jobs_slip_coupled_gpu.txt`, `run/slip_coupled.py` for CPU runs),
-   `analysis/slip_coupled_summary.py`; extra core runs: `analysis/core_extra.py`. Raw histograms: release v1.1.
+   `analysis/slip_coupled_summary.py`; extra core runs: `analysis/core_extra.py`. Raw histograms: release v1.1 and the Zenodo record doi:10.5281/zenodo.23533708.
 
 ## License
 
