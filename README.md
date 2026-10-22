@@ -87,7 +87,7 @@ Parallel scripts read the number of worker processes from the environment variab
    `data/cells`),
    `analysis/band_tm_nc.py 12` and
    `analysis/band_tm_nc.py 12 --p bond=0.5,site=0.5927 --out results/band_tm_nc_plimit.json`, `analysis/paper_figs.py` (the tiling figures need `data/cells` from step 1),
-   `analysis/make_supplement.py`; then compile `paper/main.tex`.
+   `analysis/make_supplement.py`; then compile `paper/main.tex`. The arXiv bundle is built by `tools/make_arxiv.py`.
 5. Coupled runs of slip pairs: `analysis/slip_coupled_cells.py` (cells with a common numbering), `nz/nz_pair.c` or
    `gpu/nz_pair_gpu.cu` (task lists `run/jobs_slip_coupled_gpu.txt`, `run/slip_coupled.py` for CPU runs),
    `analysis/slip_coupled_summary.py`; extra core runs: `analysis/core_extra.py`.
