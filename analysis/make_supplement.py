@@ -52,10 +52,11 @@ slip_pairs.csv - pairs with the same unit-cell content and T2' = T2 +- T1/2 (k <
 composition_groups.csv - tilings with identical vertex-type composition (groups of two or more)
   composition, n_tilings, ids (separated by '|'), spread_site, spread_bond (max - min threshold)
 
-atlas_check.csv - finite-size check of the atlas on a stratified sample of 100 tilings (200 thresholds)
-  stratum        E = most elongated atlas tori, L = largest unit cells, R = random (5 per k)
+atlas_check.csv - finite-size check of the atlas on a stratified sample of 130 tilings (260 thresholds)
+  stratum        E = most elongated atlas tori, L = largest unit cells, R = random (5 per k),
+                 S = largest fraction of (4^4) vertices (largest square domains)
   N1, p1, err1   atlas torus: number of sites (bonds), estimate from the atlas runs plus an extension run
-  N2, p2, err2   near-square torus with 3.7-4.6 times as many sites
+  N2, p2, err2   near-square torus with 3.4-4.6 times as many sites
   delta, err_delta   p2 - p1 and its error (measures the finite-size bias of the atlas value)
 
 Errors are one standard deviation.
