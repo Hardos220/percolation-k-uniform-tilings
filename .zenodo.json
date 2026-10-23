@@ -25,6 +25,11 @@
       "identifier": "https://github.com/Hardos220/percolation-k-uniform-tilings",
       "relation": "isSupplementTo",
       "scheme": "url"
+    },
+    {
+      "identifier": "arXiv:2610.31190",
+      "relation": "isSupplementTo",
+      "scheme": "arxiv"
     }
   ],
   "language": "eng"

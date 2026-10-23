@@ -1,9 +1,11 @@
 # Site and bond percolation thresholds of all k-uniform tilings with k ≤ 10
 
+[![arXiv](https://img.shields.io/badge/arXiv-2610.31190-b31b1b.svg)](https://arxiv.org/abs/2610.31190)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23533708.svg)](https://doi.org/10.5281/zenodo.23533708)
 
 Code and data for the paper *Site and bond percolation thresholds of all k-uniform tilings with k ≤ 10* by
-Maksim Elisov (Samara National Research University), submitted to Physical Review E.
+Maksim Elisov (Samara National Research University), preprint
+[arXiv:2610.31190](https://arxiv.org/abs/2610.31190).
 
 ## Results
 

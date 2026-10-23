@@ -1,4 +1,4 @@
-cff-version: 1.3.0
+cff-version: 1.2.0
 message: "If you use this code or data, please cite it as below."
 title: "Site and bond percolation thresholds of all k-uniform tilings with k <= 10: manuscript, code and data"
 authors:
@@ -8,6 +8,13 @@ authors:
     orcid: "https://orcid.org/0009-0001-3097-2703"
 license: MIT
 doi: 10.5281/zenodo.23533708
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23533708
+    description: "Zenodo archive (all versions)"
+  - type: doi
+    value: 10.48550/arXiv.2610.31190
+    description: "arXiv preprint"
 repository-code: "https://github.com/Hardos220/percolation-k-uniform-tilings"
 keywords:
   - percolation threshold
@@ -17,3 +24,15 @@ keywords:
   - Monte Carlo
 version: 1.3.0
 date-released: "2026-10-22"
+preferred-citation:
+  type: article
+  title: "Site and bond percolation thresholds of all k-uniform tilings with k <= 10"
+  authors:
+    - family-names: Elisov
+      given-names: Maksim
+      affiliation: Samara National Research University
+      orcid: "https://orcid.org/0009-0001-3097-2703"
+  year: 2026
+  journal: "arXiv preprint arXiv:2610.31190"
+  doi: 10.48550/arXiv.2610.31190
+  url: "https://arxiv.org/abs/2610.31190"
